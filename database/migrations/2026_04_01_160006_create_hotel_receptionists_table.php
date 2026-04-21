@@ -16,8 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
             $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->time('shift_start')->nullable();
-            $table->time('shift_end')->nullable();
             $table->timestamps();
 
             $table->unique(['user_id', 'hotel_id']);

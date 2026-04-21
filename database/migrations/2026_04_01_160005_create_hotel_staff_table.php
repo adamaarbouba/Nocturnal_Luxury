@@ -18,9 +18,6 @@ return new class extends Migration
             $table->enum('role', ['cleaner', 'inspector']);
             $table->decimal('hourly_rate', 8, 2)->nullable();
             $table->boolean('is_available')->default(true);
-            $table->time('available_from')->nullable();
-            $table->time('available_to')->nullable();
-            $table->json('available_days')->nullable(); // ["Monday", "Tuesday", ...]
             $table->timestamps();
 
             $table->unique(['user_id', 'hotel_id', 'role']);

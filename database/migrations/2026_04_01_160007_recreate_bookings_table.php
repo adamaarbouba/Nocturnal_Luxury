@@ -19,9 +19,7 @@ return new class extends Migration
             $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
             $table->date('check_in_date');
             $table->date('check_out_date');
-            $table->time('check_in_time')->nullable();
-            $table->time('check_out_time')->nullable();
-            $table->enum('status', ['pending','checked_in', 'checked_out', 'cancelled'])->default('pending');
+            $table->enum('status', ['pending', 'confirmed', 'checked_in', 'checked_out', 'cancelled'])->default('pending');
             $table->enum('payment_status', ['pending', 'paid', 'partial', 'refunded'])->default('pending');
             $table->decimal('total_amount', 10, 2);
             $table->text('special_requests')->nullable();

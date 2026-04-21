@@ -19,8 +19,6 @@ return new class extends Migration
             $table->enum('status', ['pending', 'approved', 'rejected', 'resolved'])->default('pending');
             $table->enum('severity', ['minor', 'moderate', 'severe'])->default('moderate');
             $table->text('issue_description');
-            $table->timestamp('approval_date')->nullable();
-            $table->timestamp('resolved_date')->nullable();
             $table->timestamps();
         });
     }
