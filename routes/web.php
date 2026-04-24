@@ -12,6 +12,10 @@ use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 use App\Http\Controllers\Owner\HotelsController as OwnerHotelsController;
 use App\Http\Controllers\Owner\MaintenanceController as OwnerMaintenanceController;
 use App\Http\Controllers\Owner\StaffController as OwnerStaffController;
+use App\Http\Controllers\Receptionist\Hotel\CheckInOutController as ReceptionistCheckInOutController;
+use App\Http\Controllers\Receptionist\DashboardController as ReceptionistDashboardController;
+use App\Http\Controllers\Receptionist\BookingController as ReceptionistBookingController;
+use App\Http\Controllers\Receptionist\PaymentController as ReceptionistPaymentController;
 
 
 // Base Route
@@ -97,6 +101,39 @@ Route::middleware('auth')->group(function () {
         Route::get('/owner/maintenance/{maintenanceRequest}', [OwnerMaintenanceController::class, 'show'])->name('owner.maintenance.show');
         Route::post('/owner/maintenance/{maintenanceRequest}/transition', [OwnerMaintenanceController::class, 'transition'])->name('owner.maintenance.transition');
     });
+        // Receptionist Routes
+    Route::middleware('role:receptionist')->group(function () {
+        Route::get('/receptionist/dashboard', [ReceptionistDashboardController::class, 'index'])->name('receptionist.dashboard');
+
+        // Check-in Routes
+        Route::get('/receptionist/check-in', [ReceptionistCheckInOutController::class, 'indexCheckIn'])->name('receptionist.check-in.index');
+        Route::get('/receptionist/check-in/{booking}', [ReceptionistCheckInOutController::class, 'showCheckIn'])->name('receptionist.check-in.show');
+        Route::post('/receptionist/check-in/{booking}', [ReceptionistCheckInOutController::class, 'processCheckIn'])->name('receptionist.check-in.process');
+
+        // Check-out Routes
+        Route::get('/receptionist/check-out', [ReceptionistCheckInOutController::class, 'indexCheckOut'])->name('receptionist.check-out.index');
+        Route::get('/receptionist/check-out/{booking}', [ReceptionistCheckInOutController::class, 'showCheckOut'])->name('receptionist.check-out.show');
+        Route::post('/receptionist/check-out/{booking}', [ReceptionistCheckInOutController::class, 'processCheckOut'])->name('receptionist.check-out.process');
+
+        // Booking Management Routes
+        Route::get('/receptionist/bookings', [ReceptionistBookingController::class, 'index'])->name('receptionist.bookings.index');
+        Route::get('/receptionist/bookings/create', [ReceptionistBookingController::class, 'create'])->name('receptionist.bookings.create');
+        Route::post('/receptionist/bookings', [ReceptionistBookingController::class, 'store'])->name('receptionist.bookings.store');
+        Route::get('/receptionist/bookings/{booking}', [ReceptionistBookingController::class, 'show'])->name('receptionist.bookings.show');
+        Route::get('/receptionist/bookings/status/{status}', [ReceptionistBookingController::class, 'filterByStatus'])->name('receptionist.bookings.filter');
+        Route::post('/receptionist/bookings/{booking}/confirm', [ReceptionistBookingController::class, 'confirmBooking'])->name('receptionist.bookings.confirm');
+        Route::post('/receptionist/bookings/{booking}/cancel', [ReceptionistBookingController::class, 'cancelBooking'])->name('receptionist.bookings.cancel');
+
+        // Payment Routes
+        Route::get('/receptionist/bookings/{booking}/payment', [ReceptionistPaymentController::class, 'showPaymentForm'])->name('receptionist.payments.form');
+        Route::post('/receptionist/bookings/{booking}/payment', [ReceptionistPaymentController::class, 'recordPayment'])->name('receptionist.payments.record');
+        Route::delete('/receptionist/bookings/{booking}/payments/{payment}', [ReceptionistPaymentController::class, 'deletePayment'])->name('receptionist.payments.delete');
+
+        // Refund Request Handling
+        Route::post('/receptionist/refund-requests/{refundRequest}/approve', [\App\Http\Controllers\Receptionist\PaymentController::class, 'approveRefund'])->name('receptionist.refund-requests.approve');
+        Route::post('/receptionist/refund-requests/{refundRequest}/deny', [\App\Http\Controllers\Receptionist\PaymentController::class, 'denyRefund'])->name('receptionist.refund-requests.deny');
+    });
+
 
     // Fallback redirect (Foundation)
     Route::fallback(function () {
