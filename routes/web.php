@@ -16,6 +16,8 @@ use App\Http\Controllers\Receptionist\Hotel\CheckInOutController as Receptionist
 use App\Http\Controllers\Receptionist\DashboardController as ReceptionistDashboardController;
 use App\Http\Controllers\Receptionist\BookingController as ReceptionistBookingController;
 use App\Http\Controllers\Receptionist\PaymentController as ReceptionistPaymentController;
+use App\Http\Controllers\ProfileController;
+
 
 
 // Base Route
@@ -50,10 +52,18 @@ Route::middleware('auth')->group(function () {
 
         return redirect()->route($dashboardRoute);
     })->name('dashboard');
+    // Global Profile Routes - available to all authenticated users
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::post('/profile/change-password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+    Route::delete('/profile', [ProfileController::class, 'delete'])->name('profile.delete');
+
 
     Route::middleware('role:admin')->group(function () {
         Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-        
+
         // User Management
         Route::get('/admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
         Route::get('/admin/users/{user}', [AdminUserController::class, 'show'])->name('admin.users.show');
@@ -69,7 +79,7 @@ Route::middleware('auth')->group(function () {
         // Hotels
         Route::get('/admin/hotels/{hotel}', [AdminHotelController::class, 'show'])->name('admin.hotels.show');
     });
-        // Owner Routes
+    // Owner Routes
     Route::middleware('role:owner')->group(function () {
         Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('owner.dashboard');
 
@@ -101,7 +111,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/owner/maintenance/{maintenanceRequest}', [OwnerMaintenanceController::class, 'show'])->name('owner.maintenance.show');
         Route::post('/owner/maintenance/{maintenanceRequest}/transition', [OwnerMaintenanceController::class, 'transition'])->name('owner.maintenance.transition');
     });
-        // Receptionist Routes
+    // Receptionist Routes
     Route::middleware('role:receptionist')->group(function () {
         Route::get('/receptionist/dashboard', [ReceptionistDashboardController::class, 'index'])->name('receptionist.dashboard');
 
