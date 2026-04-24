@@ -17,7 +17,7 @@ use App\Http\Controllers\Receptionist\DashboardController as ReceptionistDashboa
 use App\Http\Controllers\Receptionist\BookingController as ReceptionistBookingController;
 use App\Http\Controllers\Receptionist\PaymentController as ReceptionistPaymentController;
 use App\Http\Controllers\ProfileController;
-
+use App\Http\Controllers\Inspector\DashboardController as InspectorDashboardController;
 
 
 // Base Route
@@ -143,6 +143,20 @@ Route::middleware('auth')->group(function () {
         Route::post('/receptionist/refund-requests/{refundRequest}/approve', [\App\Http\Controllers\Receptionist\PaymentController::class, 'approveRefund'])->name('receptionist.refund-requests.approve');
         Route::post('/receptionist/refund-requests/{refundRequest}/deny', [\App\Http\Controllers\Receptionist\PaymentController::class, 'denyRefund'])->name('receptionist.refund-requests.deny');
     });
+    // Cleaner Routes
+    Route::middleware('role:cleaner')->group(function () {
+        Route::get('/cleaner/dashboard', [\App\Http\Controllers\Cleaner\DashboardController::class, 'index'])->name('cleaner.dashboard');
+        Route::get('/cleaner/rooms/{room}/complete', [\App\Http\Controllers\Cleaner\DashboardController::class, 'showCompletionForm'])->name('cleaner.rooms.complete-form');
+        Route::post('/cleaner/rooms/{room}/complete', [\App\Http\Controllers\Cleaner\DashboardController::class, 'completeRoom'])->name('cleaner.rooms.complete');
+    });
+
+    // Inspector Routes
+    Route::middleware('role:inspector')->group(function () {
+        Route::get('/inspector/dashboard', [InspectorDashboardController::class, 'index'])->name('inspector.dashboard');
+        Route::get('/inspector/rooms/{room}/inspect', [InspectorDashboardController::class, 'showInspectionForm'])->name('inspector.rooms.inspect-form');
+        Route::post('/inspector/rooms/{room}/inspect', [InspectorDashboardController::class, 'completeInspection'])->name('inspector.rooms.inspect');
+    });
+
 
 
     // Fallback redirect (Foundation)
