@@ -14,27 +14,21 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    /**
-     * Show the inspector dashboard with rooms pending inspection
-     */
     public function index(): View
     {
         $user = auth()->user();
 
-        // Get all inspector's hotel assignments
         $staffRoles = HotelStaff::where('user_id', $user->id)
             ->where('role', 'inspector')
             ->with('hotel')
             ->get();
 
         if ($staffRoles->isEmpty()) {
-            // Inspector not assigned to any hotel
             return redirect()->route('staff.hotels.index');
         }
 
         $hotelIds = $staffRoles->pluck('hotel_id');
 
-        // Get all rooms in 'Inspection' status for all assigned hotels
         $roomsNeedingInspection = Room::whereIn('hotel_id', $hotelIds)
             ->where('status', 'Inspection')
             ->with(['hotel', 'bookingItems.booking'])
@@ -48,9 +42,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Show the inspection form where inspector can accept or reject a room
-     */
     public function showInspectionForm(Room $room): View
     {
         $user = auth()->user();
@@ -70,7 +61,6 @@ class DashboardController extends Controller
             abort(403, 'This room is not pending inspection.');
         }
 
-        // Get cleaning history for this room
         $cleaningHistory = CleaningLog::where('room_id', $room->id)
             ->where('type', 'cleaning')
             ->orderBy('created_at', 'desc')
@@ -78,7 +68,6 @@ class DashboardController extends Controller
             ->with('user')
             ->get();
 
-        // Get inspection history for this room
         $inspectionHistory = InspectionRequest::where('room_id', $room->id)
             ->orderBy('created_at', 'desc')
             ->take(5)
@@ -92,9 +81,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Process inspection result - either approve or reject
-     */
     public function completeInspection(Request $request, Room $room): RedirectResponse
     {
         $validated = $request->validate([
@@ -126,7 +112,6 @@ class DashboardController extends Controller
         $severity = $validated['severity'] ?? 'minor';
         $priority = $validated['priority'] ?? 'normal';
 
-        // Create inspection request log
         if ($action === 'approved') {
             $newStatus = 'Available';
             $successMsg = 'Room ' . $room->room_number . ' approved for guests. Room is available!';
@@ -142,7 +127,6 @@ class DashboardController extends Controller
             $newStatus = 'Maintenance';
             $successMsg = 'Room ' . $room->room_number . ' sent to maintenance. Owner will review.';
 
-            // Create maintenance request for owner
             MaintenanceRequest::create([
                 'room_id' => $room->id,
                 'hotel_id' => $room->hotel_id,
@@ -152,7 +136,6 @@ class DashboardController extends Controller
                 'status' => 'pending',
             ]);
 
-            // Log the inspection decision
             InspectionRequest::create([
                 'room_id' => $room->id,
                 'inspector_id' => $user->id,
@@ -173,7 +156,6 @@ class DashboardController extends Controller
                 'severity' => $severity,
             ]);
 
-            // Create a cleaning log to track the rejection
             CleaningLog::create([
                 'room_id' => $room->id,
                 'user_id' => $user->id,
@@ -184,7 +166,6 @@ class DashboardController extends Controller
             ]);
         }
 
-        // Update room status
         $room->update(['status' => $newStatus]);
 
         return redirect()->route('inspector.dashboard')->with('success', $successMsg);

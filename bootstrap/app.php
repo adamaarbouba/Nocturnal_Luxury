@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\CheckRole;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,26 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'role' => \App\Http\Middleware\CheckRole::class,
+            'role' => CheckRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // Redirect 404s to user dashboard when authenticated
-        $exceptions->render(function (\Illuminate\Http\Exceptions\HttpResponseException|\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e, \Illuminate\Http\Request $request) {
-            if ($request->user() && $e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
-                $roleMap = [
-                    'admin' => 'admin.dashboard',
-                    'owner' => 'owner.dashboard',
-                    'receptionist' => 'receptionist.dashboard',
-                    'cleaner' => 'staff.dashboard',
-                    'inspector' => 'inspector.dashboard',
-                    'guest' => 'guest.dashboard',
-                ];
-
-                $userRole = $request->user()->role->slug;
-                $dashboardRoute = $roleMap[$userRole] ?? 'dashboard';
-
-                return redirect()->route($dashboardRoute);
-            }
-        });
     })->create();

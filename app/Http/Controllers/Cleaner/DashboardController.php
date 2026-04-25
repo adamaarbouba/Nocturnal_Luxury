@@ -12,27 +12,21 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    /**
-     * Show the cleaner dashboard with rooms needing cleaning
-     */
     public function index(): View
     {
         $user = auth()->user();
 
-        // Get all cleaner's hotel assignments
         $staffRoles = HotelStaff::where('user_id', $user->id)
             ->where('role', 'cleaner')
             ->with('hotel')
             ->get();
 
         if ($staffRoles->isEmpty()) {
-            // Cleaner not assigned to any hotel
             return redirect()->route('staff.hotels.index');
         }
 
         $hotelIds = $staffRoles->pluck('hotel_id');
 
-        // Get all rooms in 'Cleaning' status for all assigned hotels
         $roomsNeedsCleaning = Room::whereIn('hotel_id', $hotelIds)
             ->where('status', 'Cleaning')
             ->with(['hotel', 'bookingItems.booking'])
@@ -46,9 +40,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Show the cleaning completion form where cleaner can add notes
-     */
     public function showCompletionForm(Room $room): View
     {
         $user = auth()->user();
@@ -68,7 +59,6 @@ class DashboardController extends Controller
             abort(403, 'This room is not in a cleanable status.');
         }
 
-        // Get previous cleaning and inspection logs for this room
         $cleaningHistory = CleaningLog::where('room_id', $room->id)
             ->orderBy('created_at', 'desc')
             ->take(5)
@@ -81,9 +71,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Process room completion - either mark as finished (Inspection) or re-clean (stays Cleaning)
-     */
     public function completeRoom(Request $request, Room $room): RedirectResponse
     {
         $validated = $request->validate([
@@ -111,7 +98,6 @@ class DashboardController extends Controller
         $action = $validated['action'];
         $notes = $validated['notes'] ?? '';
 
-        // Determine the message based on action
         if ($action === 'finished') {
             $message = 'Cleaning completed by ' . $user->name . '.';
             $newStatus = 'Inspection';
@@ -123,7 +109,6 @@ class DashboardController extends Controller
             $successMsg = 'Room ' . $room->room_number . ' marked for re-cleaning. Your notes have been recorded.';
         }
 
-        // Create cleaning log entry with separate notes storage
         CleaningLog::create([
             'room_id' => $room->id,
             'user_id' => $user->id,
@@ -133,7 +118,6 @@ class DashboardController extends Controller
             'action' => $action,
         ]);
 
-        // Update room status
         $room->update(['status' => $newStatus]);
 
         return redirect()->route('cleaner.dashboard')->with('success', $successMsg);

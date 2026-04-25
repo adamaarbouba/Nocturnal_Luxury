@@ -90,7 +90,6 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        // Verify password
         $validated = $request->validate([
             'password' => [
                 'required',
@@ -104,10 +103,8 @@ class ProfileController extends Controller
             'password.required' => 'Password is required to delete your account',
         ]);
 
-        // Soft delete user
         $user->delete();
 
-        // Logout
         auth()->logout();
 
         return redirect()->route('login')

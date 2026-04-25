@@ -1,4 +1,3 @@
-{{-- Reusable Table Component --}}
 <div class="overflow-hidden rounded-lg border border-[#4E3B46] bg-[#383537] shadow-sm">
     <table class="w-full">
         <thead class="border-b border-[#4E3B46] bg-[#2A2729]">
@@ -16,7 +15,7 @@
     </table>
 </div>
 
-{{-- Table Row Component for use within table --}}
+
 @php
     if (!isset($skipRowComponent)) {
         $skipRowComponent = false;

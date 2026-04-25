@@ -5,19 +5,19 @@
 @endphp
 
 @section('content')
-    {{-- Ambient Gradients --}}
+
     <div class="fixed top-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
         style="background: rgba(160, 113, 127, 0.05); z-index: 0;"></div>
     <div class="fixed bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
         style="background: rgba(234, 211, 205, 0.03); z-index: 0;"></div>
 
     <div class="relative z-10">
-        {{-- Breadcrumbs --}}
+
         <x-breadcrumbs :links="[
             ['label' => 'Inspector Dashboard', 'url' => route('inspector.dashboard')]
         ]" />
 
-        {{-- Page Header --}}
+
         <div class="mb-10">
             <p class="text-xs font-medium uppercase mb-2" style="color: #A0717F; letter-spacing: 0.4em;">
                 Quality Control
@@ -28,7 +28,7 @@
             <p class="mt-4 text-[#CFCBCA] opacity-70">Review and adjudicate rooms processed by the cleaning staff</p>
         </div>
 
-    <!-- Success/Error Messages -->
+
     @if ($message = Session::get('success'))
         <div class="mb-6 p-4 rounded-lg border border-green-500 bg-green-500/20 text-green-400">
             {{ $message }}
@@ -41,9 +41,9 @@
         </div>
     @endif
 
-    <!-- Stats Section -->
+
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        {{-- Pending Rooms Card --}}
+
         <div class="group bg-[#383537] border border-[#4E3B46] rounded-2xl shadow-xl p-8 relative overflow-hidden transition-all hover:border-[#A0717F]/50">
             <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <x-icon name="clipboard" class="w-16 h-16 text-[#A0717F]" />
@@ -54,7 +54,7 @@
             </div>
         </div>
 
-        {{-- Processed Efficiency --}}
+
         <div class="group bg-[#383537] border border-[#4E3B46] rounded-2xl shadow-xl p-8 relative overflow-hidden transition-all hover:border-[#EAD3CD]/30">
              <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                 <x-icon name="check-circle" class="w-16 h-16 text-[#EAD3CD]" />
@@ -67,7 +67,7 @@
             </div>
         </div>
 
-        {{-- User Identity Card --}}
+
         <div class="group bg-[#2A2729] border border-[#4E3B46] rounded-2xl shadow-xl p-8 relative overflow-hidden transition-all">
              <div class="absolute -bottom-2 -right-2 p-4 opacity-5">
                 <x-icon name="user" class="w-20 h-20 text-[#EAD3CD]" />
@@ -79,7 +79,7 @@
         </div>
     </div>
 
-    <!-- Rooms Table -->
+
     <div class="bg-[#383537] border border-[#4E3B46] rounded-2xl shadow-2xl overflow-hidden mb-12">
         <div class="bg-[#2A2729] border-b border-[#4E3B46] px-8 py-5 flex justify-between items-center">
             <h3 class="text-sm font-bold text-[#EAD3CD] uppercase tracking-widest">Inspection Queue</h3>

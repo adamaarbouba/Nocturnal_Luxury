@@ -2,19 +2,19 @@
 
 
 @section('content')
-    {{-- Ambient Gradients --}}
+
     <div class="fixed top-0 left-64 w-[600px] h-[600px] rounded-full blur-3xl pointer-events-none"
         style="background: rgba(160, 113, 127, 0.04); z-index: 0;"></div>
     <div class="fixed bottom-0 right-0 w-[500px] h-[500px] rounded-full blur-3xl pointer-events-none"
         style="background: rgba(234, 211, 205, 0.03); z-index: 0;"></div>
 
     <div class="relative z-10">
-        {{-- Breadcrumbs --}}
+
         <x-breadcrumbs :links="[
             ['label' => 'Receptionist Dashboard', 'url' => route('receptionist.dashboard')]
         ]" />
 
-        {{-- Page Header --}}
+
         <div class="mb-10">
             <p class="text-xs font-medium uppercase mb-2" style="color: #A0717F; letter-spacing: 0.4em;">
                 Overview
@@ -26,7 +26,7 @@
 
         <!-- Receptionist Stats -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {{-- Stat 1 --}}
+
             <div class="rounded-2xl overflow-hidden shadow-lg transition-all duration-500"
                 style="background-color: #383537; border-top: 1px solid rgba(234, 211, 205, 0.1);"
                 onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 25px 50px rgba(160,113,127,0.15)';"
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            {{-- Stat 2 --}}
+
             <div class="rounded-2xl overflow-hidden shadow-lg transition-all duration-500"
                 style="background-color: #383537; border-top: 1px solid rgba(234, 211, 205, 0.1);"
                 onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 25px 50px rgba(160,113,127,0.15)';"
@@ -58,7 +58,7 @@
                 </div>
             </div>
 
-            {{-- Stat 3 --}}
+
             <div class="rounded-2xl overflow-hidden shadow-lg transition-all duration-500"
                 style="background-color: #383537; border-top: 1px solid rgba(234, 211, 205, 0.1);"
                 onmouseover="this.style.transform='translateY(-6px)'; this.style.boxShadow='0 25px 50px rgba(160,113,127,0.15)';"
@@ -81,7 +81,7 @@
                 <!-- Functions Box -->
                 <div class="rounded-2xl shadow-2xl p-8"
                     style="background-color: #383537; border-top: 1px solid rgba(234, 211, 205, 0.1);">
-                    {{-- Refund Requests Notification --}}
+
                     @if($pendingRefundRequests->count() > 0)
                     <div class="mb-10 rounded-2xl bg-[#2A2729] border border-[#A0717F] p-8 relative overflow-hidden group">
                         <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">

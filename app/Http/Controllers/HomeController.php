@@ -11,7 +11,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Get top 2 hotels by occupation rate
         $hotels = Hotel::query()
             ->where('status', 'approved')
             ->where('is_verified', true)
@@ -22,7 +21,6 @@ class HomeController extends Controller
             ->map(function ($hotel) {
                 $totalRooms = $hotel->rooms->count();
 
-                // Calculate current occupancy
                 if ($totalRooms > 0) {
                     $occupiedRooms = Booking::whereHas('bookingItems', function ($query) use ($hotel) {
                         $query->whereIn('room_id', $hotel->rooms->pluck('id'));

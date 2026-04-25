@@ -1,5 +1,4 @@
-{{-- Dashboard Stat Card Component --}}
-<div class="rounded-lg border border-[#1A1515]  p-6 shadow-sm hover:shadow-md transition-shadow">
+<div class="bg-[#383537] border border-[#4E3B46] rounded-2xl p-6 shadow-sm flex items-center gap-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
     <div class="flex items-start justify-between mb-4">
         @if ($icon ?? false)
             <div class="inline-flex items-center justify-center w-12 h-12 rounded-lg"

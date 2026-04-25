@@ -1,4 +1,4 @@
-{{-- Professional Standalone Layout (No Sidebar) --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -9,18 +9,18 @@
 
     <title>{{ config('app.name', 'Hotel Management') }}</title>
 
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700,800&display=swap" rel="stylesheet" />
 
-    <!-- Scripts -->
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="bg-[#4E3B46] font-sans text-[#CFCBCA] antialiased">
     <x-navbar />
 
-    <!-- Flash Messages -->
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         @if ($message = Session::get('success'))
             <x-alert variant="success" dismissible="true" class="mb-4">
@@ -41,14 +41,14 @@
         @endif
     </div>
 
-    <!-- Main Content -->
+
     <main class="flex-1">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             @yield('content')
         </div>
     </main>
 
-    <!-- Nocturnal Luxury Global Modal -->
+
     <div id="nocturnal-modal-overlay" class="fixed inset-0 bg-[#1A1515] bg-opacity-70 backdrop-blur-lg hidden z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 px-4">
         <div id="nocturnal-modal-box" class="bg-[#383537] border-t-[4px] border-[#A0717F] rounded-2xl shadow-[0_25px_50px_rgba(0,0,0,0.5)] p-8 max-w-lg w-full transform transition-all duration-300 scale-95 relative overflow-hidden">
             <!-- Subtle ambient glow -->

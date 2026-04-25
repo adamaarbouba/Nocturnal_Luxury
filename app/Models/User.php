@@ -38,7 +38,21 @@ class User extends Authenticatable
         ];
     }
 
-    // Relationships
+    public function dashboardRoute(): string
+    {
+        $roleMap = [
+            'admin' => 'admin.dashboard',
+            'owner' => 'owner.dashboard',
+            'receptionist' => 'receptionist.dashboard',
+            'staff' => 'staff.dashboard',
+            'cleaner' => 'cleaner.dashboard',
+            'inspector' => 'inspector.dashboard',
+            'guest' => 'guest.dashboard',
+        ];
+
+        return $roleMap[$this->role->slug] ?? 'dashboard';
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);

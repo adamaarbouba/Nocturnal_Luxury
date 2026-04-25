@@ -13,17 +13,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Show login form
-     */
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle login
-     */
     public function login(LoginFormRequest $request)
     {
         $credentials = $request->only('email', 'password');
@@ -32,8 +26,7 @@ class AuthController extends Controller
         if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            // Redirect based on user role
-            return $this->redirectByRole(Auth::user());
+            return redirect()->route(Auth::user()->dashboardRoute());
         }
 
         return back()
@@ -41,24 +34,16 @@ class AuthController extends Controller
             ->withErrors(['email' => 'Invalid email or password.']);
     }
 
-    /**
-     * Show register form
-     */
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle registration
-     */
     public function register(RegisterFormRequest $request)
     {
-        // Get role based on user type (maps directly to role slug)
         $roleSlug = $request->user_type;
         $role = Role::where('slug', $roleSlug)->firstOrFail();
 
-        // Create user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -66,16 +51,12 @@ class AuthController extends Controller
             'role_id' => $role->id,
         ]);
 
-        // Auto-login after registration
         Auth::login($user);
 
         return redirect()->route('dashboard')
             ->with('success', 'Account created successfully! Welcome ' . $user->name);
     }
 
-    /**
-     * Handle logout
-     */
     public function logout(Request $request)
     {
         Auth::logout();
@@ -84,24 +65,5 @@ class AuthController extends Controller
 
         return redirect()->route('login')
             ->with('success', 'You have been logged out successfully.');
-    }
-
-    /**
-     * Redirect user to appropriate dashboard based on role
-     */
-    private function redirectByRole(User $user)
-    {
-        $roleSlug = $user->role->slug;
-
-        return match ($roleSlug) {
-            'admin' => redirect()->route('admin.dashboard'),
-            'owner' => redirect()->route('owner.dashboard'),
-            'receptionist' => redirect()->route('receptionist.dashboard'),
-            'staff' => redirect()->route('staff.dashboard'),
-            'cleaner' => redirect()->route('cleaner.dashboard'),
-            'inspector' => redirect()->route('inspector.dashboard'),
-            'guest' => redirect()->route('guest.dashboard'),
-            default => redirect()->route('dashboard'),
-        };
     }
 }

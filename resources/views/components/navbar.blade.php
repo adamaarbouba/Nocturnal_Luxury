@@ -1,14 +1,11 @@
-{{-- Public Navbar Component — Nivada Branding --}}
 <header class="sticky top-0 z-40" style="background-color: #383537; border-bottom: 1px solid rgba(234, 211, 205, 0.1);">
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 flex items-center justify-between" style="height: 72px;">
-        {{-- Logo —  NOCTURNAL LUXURY text with wide letter-spacing --}}
         <a href="{{ route('welcome') }}" class="transition-colors duration-300"
             style="color: #EAD3CD; font-family: 'Georgia', serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.2em;"
             onmouseover="this.style.color='#A0717F';" onmouseout="this.style.color='#EAD3CD';">
             NOCTURNAL LUXURY
         </a>
 
-        {{-- Desktop Nav Links --}}
         <div class="hidden md:flex items-center gap-8">
             @guest
                 <a href="{{ route('login') }}"
@@ -26,7 +23,6 @@
                     Book Now
                 </a>
             @else
-                {{-- Account Dropdown for auth users --}}
                 <div class="relative group">
                     <button class="flex items-center gap-2 text-xs font-medium uppercase transition-colors duration-300"
                         style="color: #CFCBCA; letter-spacing: 0.15em;">
