@@ -25,9 +25,6 @@ return new class extends Migration
             $table->text('special_requests')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
-
-            $table->index(['user_id', 'hotel_id']);
-            $table->index(['status', 'check_in_date']);
         });
     }
 

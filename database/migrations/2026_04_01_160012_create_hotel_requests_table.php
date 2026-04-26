@@ -27,9 +27,6 @@ return new class extends Migration
             $table->foreignId('reviewed_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('reviewed_at')->nullable();
             $table->timestamps();
-
-            $table->index('owner_id');
-            $table->index('status');
         });
     }
 

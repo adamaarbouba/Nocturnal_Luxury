@@ -20,8 +20,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->unique(['booking_id', 'room_id']);
-            $table->index(['booking_id']);
-            $table->index(['room_id']);
         });
     }
 

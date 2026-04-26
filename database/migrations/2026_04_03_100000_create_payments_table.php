@@ -21,8 +21,6 @@ return new class extends Migration
             $table->foreignId('processed_by')->constrained('users')->onDelete('restrict');
             $table->dateTime('payment_date');
             $table->timestamps();
-
-            $table->index(['booking_id', 'type']);
         });
     }
 
