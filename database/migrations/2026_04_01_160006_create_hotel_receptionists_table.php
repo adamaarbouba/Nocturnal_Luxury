@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->unique()->constrained('users')->onDelete('cascade');
             $table->foreignId('hotel_id')->constrained('hotels')->onDelete('cascade');
-            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
 
             $table->unique(['user_id', 'hotel_id']);

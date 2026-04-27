@@ -70,32 +70,6 @@
                         @error('rating') <p class="text-xs text-red-400 italic mt-2">{{ $message }}</p> @enderror
                     </section>
 
-                    {{-- Step 2: Experience Pillars --}}
-                    <section class="space-y-10">
-                        <div class="flex items-center gap-4">
-                            <span class="w-8 h-[1px] bg-[#A0717F]"></span>
-                            <h2 class="text-xl font-bold font-serif text-[#EAD3CD]">Experience Pillars</h2>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            @foreach(['cleanliness_rating' => 'Cleanliness', 'service_rating' => 'Service', 'amenity_rating' => 'Amenities'] as $key => $label)
-                                <div class="pillar-box p-6 rounded-2xl bg-[#383537] border border-[#4E3B46] hover:bg-[#2A2729] transition-all duration-500" data-category="{{ $key }}">
-                                    <p class="text-[10px] font-bold uppercase tracking-widest text-[#CFCBCA] mb-6 opacity-60">{{ $label }}</p>
-                                    <div class="flex gap-1.5 mb-4">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <button type="button" class="pillar-star-btn group/star opacity-40 transition-all duration-300" data-value="{{ $i }}">
-                                                <svg class="w-4 h-4 text-[#A0717F] transition-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                                                </svg>
-                                            </button>
-                                        @endfor
-                                    </div>
-                                    <input type="hidden" name="{{ $key }}" value="{{ old($key) }}" required>
-                                    @error($key) <p class="text-[10px] text-red-400 italic mt-2">{{ $message }}</p> @enderror
-                                </div>
-                            @endforeach
-                        </div>
-                    </section>
 
                     {{-- Step 3: Detailed Feedback --}}
                     <section class="space-y-10">
@@ -192,33 +166,6 @@
 
             if (mainInput.value) updateMainDisplay(mainInput.value);
 
-            // Pillar Feedback
-            const pillars = document.querySelectorAll('.pillar-box');
-            pillars.forEach(pillar => {
-                const stars = pillar.querySelectorAll('.pillar-star-btn');
-                const input = pillar.querySelector('input');
-
-                function updatePillarDisplay(val) {
-                    stars.forEach(btn => {
-                        if (btn.dataset.value <= val) {
-                            btn.classList.add('pillar-star-filled');
-                        } else {
-                            btn.classList.remove('pillar-star-filled');
-                        }
-                    });
-                }
-
-                stars.forEach(btn => {
-                    btn.addEventListener('mouseenter', () => updatePillarDisplay(btn.dataset.value));
-                    btn.addEventListener('mouseleave', () => updatePillarDisplay(input.value));
-                    btn.addEventListener('click', () => {
-                        input.value = btn.dataset.value;
-                        updatePillarDisplay(input.value);
-                    });
-                });
-
-                if (input.value) updatePillarDisplay(input.value);
-            });
 
             // Character Counter
             const counter = document.getElementById('char-counter');

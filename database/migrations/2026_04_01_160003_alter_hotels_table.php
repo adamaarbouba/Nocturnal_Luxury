@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('city')->nullable();
             $table->string('country')->nullable();
-            $table->string('postal_code')->nullable();
             $table->enum('status', ['pending_approval', 'approved', 'rejected'])->default('pending_approval');
             $table->decimal('rating', 3, 2)->nullable();
         });
@@ -31,7 +30,7 @@ return new class extends Migration
     {
         Schema::table('hotels', function (Blueprint $table) {
             $table->dropForeignIdFor('users');
-            $table->dropColumn(['description', 'phone', 'email', 'city', 'country', 'postal_code', 'status', 'rating']);
+            $table->dropColumn(['description', 'phone', 'email', 'city', 'country', 'status', 'rating']);
         });
     }
 };

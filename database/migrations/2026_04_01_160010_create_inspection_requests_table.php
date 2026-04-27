@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
             $table->foreignId('inspector_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
             $table->enum('status', ['pending', 'approved', 'rejected', 'resolved'])->default('pending');
             $table->enum('severity', ['minor', 'moderate', 'severe'])->default('moderate');
             $table->text('issue_description');

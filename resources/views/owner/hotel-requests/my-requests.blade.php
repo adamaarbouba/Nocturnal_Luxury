@@ -47,7 +47,7 @@
                                     <div>
                                         <span class="text-[#CFCBCA]">Location:</span>
                                         <p class="text-[#EAD3CD]"><strong>{{ $request->address }}, {{ $request->city }},
-                                                {{ $request->country }} {{ $request->postal_code }}</strong></p>
+                                                {{ $request->country }}</strong></p>
                                     </div>
                                     <div>
                                         <span class="text-[#CFCBCA]">Email:</span>

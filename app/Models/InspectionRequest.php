@@ -12,7 +12,6 @@ class InspectionRequest extends Model
     protected $fillable = [
         'room_id',
         'inspector_id',
-        'approved_by',
         'status', // pending, approved, rejected, resolved
         'severity', // minor, moderate, severe
         'issue_description',
@@ -31,9 +30,5 @@ class InspectionRequest extends Model
     {
         return $this->belongsTo(User::class, 'inspector_id');
     }
-
-    public function approvedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'approved_by');
-    }
 }
+

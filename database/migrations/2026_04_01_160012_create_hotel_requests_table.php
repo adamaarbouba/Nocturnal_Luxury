@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('address');
             $table->string('city');
             $table->string('country');
-            $table->string('postal_code');
+
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->text('admin_notes')->nullable();
             $table->foreignId('reviewed_by')->nullable()->constrained('users')->onDelete('set null');

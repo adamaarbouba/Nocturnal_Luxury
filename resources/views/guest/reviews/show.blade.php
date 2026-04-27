@@ -9,8 +9,7 @@
                 ['label' => 'Review Details', 'url' => '#'],
             ]" />
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             {{-- Right Aspect: Meta Information (Moved to top on Mobile) --}}
             <div class="lg:col-span-4 space-y-8 order-2 lg:order-1">
                 <div class="p-8 rounded-2xl bg-[#383537] border border-[#4E3B46] shadow-xl space-y-8 sticky top-8">
@@ -87,27 +86,7 @@
                             <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-[#CFCBCA]/30">Narrative Published on {{ $review->created_at->format('M d, Y') }}</p>
                         </div>
 
-                        {{-- Review Pillars --}}
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12 border-t border-[#4E3B46]">
-                            @foreach([
-                                'cleanliness_rating' => ['label' => 'Cleanliness', 'icon' => 'sparkles'],
-                                'service_rating' => ['label' => 'Service', 'icon' => 'user'],
-                                'amenity_rating' => ['label' => 'Amenities', 'icon' => 'building']
-                            ] as $key => $data)
-                                <div class="p-6 rounded-2xl bg-[#383537] border border-[#4E3B46] space-y-4">
-                                    <div class="flex items-center gap-2">
-                                        <x-icon name="{{ $data['icon'] }}" size="xs" class="text-[#A0717F]/60" />
-                                        <p class="text-[10px] font-bold uppercase tracking-widest text-[#CFCBCA]">{{ $data['label'] }}</p>
-                                    </div>
-                                    <div class="flex gap-1">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <div class="w-2.5 h-2.5 rounded-full {{ $i <= $review->$key ? 'bg-[#A0717F]' : 'bg-[#4E3B46]' }}"></div>
-                                        @endfor
-                                    </div>
-                                    <p class="text-[10px] font-medium text-[#EAD3CD]">{{ $review->$key }} / 5</p>
-                                </div>
-                            @endforeach
-                        </div>
+
                     </div>
                 </div>
 

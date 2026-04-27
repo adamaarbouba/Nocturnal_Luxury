@@ -16,7 +16,6 @@ class HotelRequest extends Model
         'address',
         'city',
         'country',
-        'postal_code',
         'status',
         'admin_notes',
         'reviewed_by',
@@ -74,7 +73,6 @@ class HotelRequest extends Model
             'address' => $this->address,
             'city' => $this->city,
             'country' => $this->country,
-            'postal_code' => $this->postal_code,
             'status' => 'approved',
             'is_verified' => true,
         ]);

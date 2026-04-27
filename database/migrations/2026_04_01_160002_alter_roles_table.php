@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('roles', function (Blueprint $table) {
             $table->string('slug')->unique()->nullable();
-            $table->text('description')->nullable();
         });
     }
 
@@ -23,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropColumn(['slug', 'description']);
+            $table->dropColumn(['slug']);
         });
     }
 };

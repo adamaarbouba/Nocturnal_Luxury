@@ -31,7 +31,7 @@ class HotelRequestController extends Controller
             'address' => $request->address,
             'city' => $request->city,
             'country' => $request->country,
-            'postal_code' => $request->postal_code,
+
             'status' => 'pending',
         ]);
 

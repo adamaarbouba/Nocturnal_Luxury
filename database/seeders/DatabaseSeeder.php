@@ -22,12 +22,12 @@ class DatabaseSeeder extends Seeder
     {
         // 1. Create Roles
         $roles = [
-            ['title' => 'Administrator', 'slug' => 'admin', 'description' => 'System administrator'],
-            ['title' => 'Hotel Owner', 'slug' => 'owner', 'description' => 'Property owner'],
-            ['title' => 'Receptionist', 'slug' => 'receptionist', 'description' => 'Front desk staff'],
-            ['title' => 'Cleaner', 'slug' => 'cleaner', 'description' => 'Housekeeping staff'],
-            ['title' => 'Inspector', 'slug' => 'inspector', 'description' => 'Quality control staff'],
-            ['title' => 'Guest', 'slug' => 'guest', 'description' => 'Hotel customer'],
+            ['title' => 'Administrator', 'slug' => 'admin'],
+            ['title' => 'Hotel Owner', 'slug' => 'owner'],
+            ['title' => 'Receptionist', 'slug' => 'receptionist'],
+            ['title' => 'Cleaner', 'slug' => 'cleaner'],
+            ['title' => 'Inspector', 'slug' => 'inspector'],
+            ['title' => 'Guest', 'slug' => 'guest'],
         ];
 
         foreach ($roles as $roleData) {
@@ -97,7 +97,6 @@ class DatabaseSeeder extends Seeder
                 'city' => 'Paris',
                 'country' => 'France',
                 'address' => '12 Rue de la Paix',
-                'postal_code' => '75002',
                 'phone' => '+33 1 23 45 67 89',
                 'email' => 'atelier@nocturnal.com',
                 'rating' => 5,
@@ -129,7 +128,7 @@ class DatabaseSeeder extends Seeder
         // 5. Assign Staff to the Hotel
         HotelReceptionist::firstOrCreate(
             ['user_id' => $createdUsers['receptionist']->id],
-            ['hotel_id' => $hotel->id, 'status' => 'active']
+            ['hotel_id' => $hotel->id]
         );
 
         HotelStaff::firstOrCreate(

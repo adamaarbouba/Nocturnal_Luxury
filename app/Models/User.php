@@ -100,8 +100,5 @@ class User extends Authenticatable
         return $this->hasMany(InspectionRequest::class, 'inspector_id');
     }
 
-    public function approvedInspections(): HasMany
-    {
-        return $this->hasMany(InspectionRequest::class, 'approved_by');
-    }
 }
+

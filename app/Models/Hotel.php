@@ -18,7 +18,6 @@ class Hotel extends Model
         'address',
         'city',
         'country',
-        'postal_code',
         'status',
         'rating',
         'is_verified',

@@ -62,9 +62,7 @@ class ReviewController extends Controller
         // Validate the form submission
         $validated = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
-            'cleanliness_rating' => 'required|integer|min:1|max:5',
-            'service_rating' => 'required|integer|min:1|max:5',
-            'amenity_rating' => 'required|integer|min:1|max:5',
+
             'comment' => 'required|string|min:10|max:1000',
         ], [
             'rating.required' => 'Overall rating is required',
@@ -83,9 +81,7 @@ class ReviewController extends Controller
             'hotel_id' => $booking->hotel_id,
             'room_id' => $room?->id,
             'rating' => $validated['rating'],
-            'cleanliness_rating' => $validated['cleanliness_rating'],
-            'service_rating' => $validated['service_rating'],
-            'amenity_rating' => $validated['amenity_rating'],
+
             'comment' => $validated['comment'],
         ]);
 

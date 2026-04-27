@@ -27,7 +27,7 @@ class StoreHotelRequestRequest extends FormRequest
             'address' => 'required|string|min:5|max:500',
             'city' => 'required|string|min:2|max:100',
             'country' => 'required|string|min:2|max:100',
-            'postal_code' => 'required|string|min:3|max:20',
+
         ];
     }
 
@@ -44,7 +44,7 @@ class StoreHotelRequestRequest extends FormRequest
             'address.required' => 'Address is required.',
             'city.required' => 'City is required.',
             'country.required' => 'Country is required.',
-            'postal_code.required' => 'Postal code is required.',
+
         ];
     }
 }

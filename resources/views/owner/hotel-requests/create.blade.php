@@ -117,13 +117,6 @@
                                     class="w-full bg-[#2A2729] border border-[#4E3B46] text-[#EAD3CD] rounded-xl px-5 py-4 focus:outline-none focus:border-[#A0717F] focus:ring-1 focus:ring-[#A0717F] transition-all placeholder-[#4E3B46]"
                                     placeholder="France">
                             </div>
-
-                            <div class="space-y-2">
-                                <label class="text-sm font-medium text-[#CFCBCA]">Postal Code <span class="text-[#A0717F]">*</span></label>
-                                <input type="text" name="postal_code" value="{{ old('postal_code') }}" required
-                                    class="w-full bg-[#2A2729] border border-[#4E3B46] text-[#EAD3CD] rounded-xl px-5 py-4 focus:outline-none focus:border-[#A0717F] focus:ring-1 focus:ring-[#A0717F] transition-all placeholder-[#4E3B46]"
-                                    placeholder="75001">
-                            </div>
                         </div>
                     </section>
 

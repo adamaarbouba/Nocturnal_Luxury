@@ -12,10 +12,6 @@ class HotelReceptionist extends Model
     protected $fillable = [
         'user_id',
         'hotel_id',
-        'status', // active or inactive
-    ];
-
-    protected $casts = [
     ];
 
     // Relationships

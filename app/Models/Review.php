@@ -13,17 +13,13 @@ class Review extends Model
         'hotel_id',
         'room_id',
         'rating', // 1-5
-        'cleanliness_rating', // 1-5
-        'service_rating', // 1-5
-        'amenity_rating', // 1-5
+
         'comment',
     ];
 
     protected $casts = [
         'rating' => 'integer',
-        'cleanliness_rating' => 'integer',
-        'service_rating' => 'integer',
-        'amenity_rating' => 'integer',
+
     ];
 
     // Relationships
