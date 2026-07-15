@@ -33,7 +33,7 @@
             @endif
 
             <!-- Change Password Form -->
-            <form action="{{ route('profile.updatePassword') }}" method="POST"
+            <form action="{{ route('profile.update-password') }}" method="POST"
                 class="rounded-2xl shadow-sm p-8 border border-transparent hover:shadow-lg transition"
                 style="background-color: #383537;">
                 @csrf

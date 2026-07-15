@@ -84,7 +84,7 @@
                                 <span class="inline-block mt-2 px-3 py-1 text-xs font-medium uppercase tracking-wider rounded border"
                                       @if ($item->room->status === 'Reserved') style="background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.3); color: #60A5FA;"
                                       @else style="background: rgba(207, 203, 202, 0.1); border-color: rgba(207, 203, 202, 0.2); color: #CFCBCA;" @endif>
-                                    @if ($item->room->status === 'Reserved') Status: Set to Occupied @else Status: {{ $item->room->status }} @endif
+                                    Status: {{ $item->room->status }}
                                 </span>
                             </div>
                         </div>

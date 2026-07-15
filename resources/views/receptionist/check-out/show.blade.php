@@ -107,7 +107,7 @@
                                 <span class="inline-block mt-2 px-3 py-1 text-xs font-medium uppercase tracking-wider rounded border"
                                       @if ($item->room->status === 'Occupied') style="background: rgba(239, 68, 68, 0.05); border-color: rgba(239, 68, 68, 0.2); color: #F87171;"
                                       @else style="background: rgba(207, 203, 202, 0.1); border-color: rgba(207, 203, 202, 0.2); color: #CFCBCA;" @endif>
-                                    @if ($item->room->status === 'Occupied') State: To Cleaning @else State: {{ $item->room->status }} @endif
+                                    State: {{ $item->room->status }}
                                 </span>
                             </div>
                         </div>

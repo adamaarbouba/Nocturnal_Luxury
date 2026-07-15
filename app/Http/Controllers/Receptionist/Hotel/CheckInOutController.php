@@ -33,7 +33,7 @@ class CheckInOutController extends Controller
         $hotel = $this->getReceptionistHotel();
 
         $pendingCheckIns = Booking::where('hotel_id', $hotel->id)
-            ->where('status', 'pending')
+            ->whereIn('status', ['pending', 'confirmed'])
             ->where('check_in_date', '<=', today())
             ->with(['user', 'bookingItems.room'])
             ->orderBy('check_in_date', 'asc')
@@ -57,8 +57,8 @@ class CheckInOutController extends Controller
             abort(403, 'This booking does not belong to your hotel.');
         }
 
-        // Verify booking is pending
-        if ($booking->status !== 'pending') {
+        // Verify booking is pending or confirmed
+        if (!in_array($booking->status, ['pending', 'confirmed'])) {
             abort(400, 'This booking is not pending check-in.');
         }
 
@@ -80,8 +80,8 @@ class CheckInOutController extends Controller
             abort(403, 'This booking does not belong to your hotel.');
         }
 
-        // Verify booking is pending
-        if ($booking->status !== 'pending') {
+        // Verify booking is pending or confirmed
+        if (!in_array($booking->status, ['pending', 'confirmed'])) {
             return redirect()
                 ->route('receptionist.check-in.index')
                 ->with('error', 'This booking is not pending check-in.');

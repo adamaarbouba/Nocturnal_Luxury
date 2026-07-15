@@ -26,7 +26,7 @@ class HomeController extends Controller
                         $query->whereIn('room_id', $hotel->rooms->pluck('id'));
                     })
                         ->where(function ($query) {
-                            $query->whereIn('status', ['pending', 'checked_in'])
+                            $query->whereIn('status', ['pending', 'confirmed', 'checked_in'])
                                 ->whereDate('check_in_date', '<=', now())
                                 ->whereDate('check_out_date', '>', now());
                         })

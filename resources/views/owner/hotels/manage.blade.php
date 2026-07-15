@@ -36,7 +36,6 @@
                                 <th class="px-6 py-3 text-xs font-semibold text-[#CFCBCA]">Type</th>
                                 <th class="px-6 py-3 text-xs font-semibold text-[#CFCBCA]">Capacity</th>
                                 <th class="px-6 py-3 text-xs font-semibold text-[#CFCBCA]">Price</th>
-                                <th class="px-6 py-3 text-xs font-semibold text-[#CFCBCA]">Status</th>
                                 <th class="px-6 py-3 text-xs font-semibold text-[#CFCBCA]">Action</th>
                             </tr>
                         </thead>
@@ -49,39 +48,6 @@
                                     <td class="px-6 py-4 text-sm text-[#CFCBCA]">{{ $room->capacity }} guests</td>
                                     <td class="px-6 py-4 text-sm text-[#EAD3CD] font-semibold">
                                         ${{ number_format($room->price_per_night, 2) }}</td>
-                                    <td class="px-6 py-4 text-sm">
-                                        <select onchange="updateRoomStatus({{ $room->id }}, this.value)"
-                                            class="px-3 py-1 rounded text-xs font-semibold border bg-[#2A2729] outline-none
-                                                @if ($room->status === 'Available') text-green-400 border-green-500
-                                                @elseif ($room->status === 'Occupied') text-blue-400 border-blue-500
-                                                @elseif ($room->status === 'Reserved') text-indigo-400 border-indigo-500
-                                                @elseif ($room->status === 'Cleaning') text-yellow-400 border-yellow-500
-                                                @elseif ($room->status === 'Inspection') text-purple-400 border-purple-500
-                                                @elseif ($room->status === 'Maintenance') text-red-400 border-red-500
-                                                @else text-[#CFCBCA] border-[#4E3B46] @endif">
-                                            <option value="Available" @selected($room->status === 'Available')>
-                                                Available
-                                            </option>
-                                            <option value="Reserved" @selected($room->status === 'Reserved')>
-                                                Reserved
-                                            </option>
-                                            <option value="Occupied" @selected($room->status === 'Occupied')>
-                                                Occupied
-                                            </option>
-                                            <option value="Cleaning" @selected($room->status === 'Cleaning')>
-                                                Cleaning
-                                            </option>
-                                            <option value="Inspection" @selected($room->status === 'Inspection')>
-                                                Inspection
-                                            </option>
-                                            <option value="Maintenance" @selected($room->status === 'Maintenance')>
-                                                Maintenance
-                                            </option>
-                                            <option value="Disabled" @selected($room->status === 'Disabled')>
-                                                Disabled
-                                            </option>
-                                        </select>
-                                    </td>
                                     <td class="px-6 py-4 text-sm flex gap-3">
                                         @if ($room->status === 'Occupied')
                                             <button disabled class="text-[#4E3B46] cursor-not-allowed font-semibold"

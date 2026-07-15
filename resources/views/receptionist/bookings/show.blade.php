@@ -63,6 +63,16 @@
                 <!-- Action Buttons -->
                 @if ($booking->status === 'pending')
                     <div class="mt-8 flex flex-wrap gap-4">
+                        <form action="{{ route('receptionist.bookings.confirm', $booking) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit"
+                                class="inline-block px-8 py-3 rounded-md text-sm font-semibold uppercase transition-all duration-300"
+                                style="background-color: #3b82f6; color: #FFFFFF; letter-spacing: 0.12em; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);"
+                                onmouseover="this.style.backgroundColor='#2563eb'; this.style.transform='translateY(-2px)';"
+                                onmouseout="this.style.backgroundColor='#3b82f6'; this.style.transform='translateY(0)';">
+                                Confirm Booking
+                            </button>
+                        </form>
                         <a href="{{ route('receptionist.check-in.show', $booking) }}"
                             class="inline-block px-8 py-3 rounded-md text-sm font-semibold uppercase transition-all duration-300"
                             style="background-color: #A0717F; color: #FFFFFF; letter-spacing: 0.12em; box-shadow: 0 4px 15px rgba(160, 113, 127, 0.3);"
@@ -82,6 +92,16 @@
                                 Cancel Booking
                             </button>
                         </form>
+                    </div>
+                @elseif ($booking->status === 'confirmed')
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="{{ route('receptionist.check-in.show', $booking) }}"
+                            class="inline-block px-8 py-3 rounded-md text-sm font-semibold uppercase transition-all duration-300"
+                            style="background-color: #A0717F; color: #FFFFFF; letter-spacing: 0.12em; box-shadow: 0 4px 15px rgba(160, 113, 127, 0.3);"
+                            onmouseover="this.style.backgroundColor='#b58290'; this.style.transform='translateY(-2px)';"
+                            onmouseout="this.style.backgroundColor='#A0717F'; this.style.transform='translateY(0)';">
+                            Check-In Guest
+                        </a>
                     </div>
                 @elseif ($booking->status === 'checked_in')
                     <div class="mt-8">

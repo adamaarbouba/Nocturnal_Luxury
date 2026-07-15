@@ -23,9 +23,9 @@ class DashboardController extends Controller
 
         $hotel = $receptionistData->hotel;
 
-        // Get today's check-ins (pending bookings with check-in date <= today)
+        // Get today's check-ins (pending or confirmed bookings with check-in date <= today)
         $todayCheckIns = Booking::where('hotel_id', $hotel->id)
-            ->where('status', 'pending')
+            ->whereIn('status', ['pending', 'confirmed'])
             ->where('check_in_date', '<=', today())
             ->count();
 

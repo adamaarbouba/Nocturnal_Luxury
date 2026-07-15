@@ -70,16 +70,16 @@ class ProfileController extends Controller
                     }
                 },
             ],
-            'new_password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ], [
             'current_password.required' => 'Current password is required',
-            'new_password.required' => 'New password is required',
-            'new_password.min' => 'Password must be at least 8 characters',
-            'new_password.confirmed' => 'Passwords do not match',
+            'password.required' => 'New password is required',
+            'password.min' => 'Password must be at least 8 characters',
+            'password.confirmed' => 'Passwords do not match',
         ]);
 
         $user->update([
-            'password' => Hash::make($validated['new_password']),
+            'password' => Hash::make($validated['password']),
         ]);
 
         return redirect()->route('profile.show')

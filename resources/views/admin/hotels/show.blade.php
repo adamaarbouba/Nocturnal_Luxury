@@ -91,8 +91,6 @@
                             Capacity</th>
                         <th class="px-6 py-3 text-left text-xs font-semibold text-[#CFCBCA] uppercase tracking-wide">Price
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-semibold text-[#CFCBCA] uppercase tracking-wide">Status
-                        </th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-[#4E3B46]">
@@ -103,17 +101,6 @@
                             <td class="px-6 py-3 text-[#CFCBCA]">{{ $room->capacity }} guests</td>
                             <td class="px-6 py-3 font-medium text-[#A0717F]">
                                 ${{ number_format($room->price_per_night, 2) }}</td>
-                            <td class="px-6 py-3">
-                                <span
-                                    class="text-xs px-2.5 py-1 rounded border font-medium
-                                    @if ($room->status === 'Available') bg-green-900/50 text-green-300 border-green-800
-                                    @elseif ($room->status === 'Occupied') bg-blue-900/50 text-blue-300 border-blue-800
-                                    @elseif ($room->status === 'Maintenance') bg-red-900/50 text-red-300 border-red-800
-                                    @elseif ($room->status === 'Cleaning') bg-yellow-900/50 text-yellow-300 border-yellow-800
-                                    @else bg-gray-800 text-gray-300 border-gray-700 @endif">
-                                    {{ $room->status }}
-                                </span>
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>

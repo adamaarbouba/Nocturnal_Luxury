@@ -135,8 +135,6 @@
                                         <h3 class="text-lg font-bold text-[#EAD3CD]">{{ $room->room_type }}</h3>
                                         <p class="text-xs text-[#CFCBCA]">Room {{ $room->room_number }}</p>
                                     </div>
-                                    <span
-                                        class="px-2 py-1 rounded-full bg-[#1A1515] text-green-400 border border-green-500 text-xs font-semibold">Available</span>
                                 </div>
 
                                 <!-- Room Details -->
